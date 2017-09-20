@@ -46,7 +46,12 @@ public class ArrayDuplicateElement {
 
 		/* For full credit, your solution should be in-place and take linear time. */
 
-		return -1; // TODO: Replace this stub with your code.
+		// each element in the input array is an integer between 1 and n, where n is the length of the array.
+		int length = ints.length;
+		
+		
+		
+		return -1;
 
 	}
 
