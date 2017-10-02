@@ -46,13 +46,42 @@ public class ArrayDuplicateElement {
 
 		/* For full credit, your solution should be in-place and take linear time. */
 
-		// each element in the input array is an integer between 1 and n, where n is the length of the array.
+		// Each element in the input array is an integer between 1 and n (positive!), where n is the length of the array.
+		
+		// If there are duplicates and we use them as index of the array, they all point to the same int.
+	    // All the ints are positive, we can turn ints[int[i] - 1] to -ints[int[i] - 1] to indicate we have read int[i].
+		
 		int length = ints.length;
 		
-		
+		for(int i = 0; i < length; i++){
+			
+			if( ints[i] > 0){
+				if( ints[ints[i] - 1] < 0){
+					// negative == have read this int before
+					return ints[i];
+				}
+				
+				else{
+					// Negate the int with index==ints[i]-1, as a mark.
+					ints[ints[i] - 1] = -ints[ints[i] - 1];
+				}
+			}
+			else{
+				//ints[i] < 0
+				
+				if( ints[-ints[i] - 1] < 0){
+					// negative == have read this int before
+					return -ints[i];
+				}
+				else{
+					// Negate the int with index==-ints[i]-1, as a mark.
+					ints[-ints[i] - 1] = -ints[-ints[i] - 1];
+				}
+				
+			}
+		}
 		
 		return -1;
-
 	}
 
 	/**
@@ -95,5 +124,10 @@ public class ArrayDuplicateElement {
 		System.out.println("\nAdditional tests done by the student or TA:\n");
 
 		// Insert your additional test cases here.
+		testDrive(new int[] { 3, 1, 5, 4, 7, 8, 2, 6 }, " -1 ");
+		
+		testDrive(new int[] { 3, 1, 5, 4, 6, 6, 7, 8 }, " 6 ");
+		
+		testDrive(new int[] { 5, 2, 10, 7, 4, 9, 3, 6, 10, 8 }, " 10 ");
 	}
 }

@@ -36,12 +36,103 @@ public class LongestAlmostFlatSubarray {
 	 * @param ints
 	 *            the input array.
 	 */
-
+	
+	
 	public static int[] longestAFS(int[] ints) {
 
 		/* For full credit, your solution should be in-place and take linear time. */
-
-		return new int[] { 0, 0 }; // TODO: Replace this stub with your code.
+		//A subarray is almost flat if no two elements of it differ by more than 1.
+		
+		int arrlength = ints.length;
+		
+		// the length of the longest AFS in the final result
+		int resultLength = 0;	
+		
+		// the length of the current AFS
+		int tmpLength = 0;	
+		
+		// index of the start of the current AFS
+		int initialIndex = 0;
+		
+		// index of the start of the longest AFS 
+		int resultIndex = 0;
+		
+		// index of the last minimum in the current AFS
+		int minIndex = 0;
+		
+		// maximum in current AFS
+		int maxInt = ints[0];
+		
+		// maximum in current AFS
+	    int	minInt = ints[0];
+		
+		
+		int[] resultArr = new int[2];
+		
+		for(int i = 0; i< arrlength; i++){
+			if(Math.abs(ints[i] - maxInt) <= 1 && Math.abs(ints[i] - minInt) <= 1){
+				// satisfied, the AFS grows
+				
+				tmpLength++;
+				
+				// find the maximum ( the larger int)
+				maxInt = (ints[i] > minInt) ? ints[i] : maxInt;
+				
+				// increment the index of minimum if we find a new one
+				if(ints[i] <= minInt){
+					minInt = ints[i];
+					minIndex = i;
+				}
+				
+				//update the result
+				resultLength = (resultLength > tmpLength) ? resultLength : tmpLength;
+				resultIndex = (resultLength > tmpLength) ? resultIndex : initialIndex ;
+				
+			}
+			else if(ints[i] - maxInt == 1 && ints[i-1] == maxInt ){
+				// the AFS is broken, but int[i] and the previous maximums can form a new AFS
+				// eg: 2, 2, 3, 3, 4
+				//     AFS: 2, 2, 3, 3 ==> AFS: 3, 3, 4
+				
+				// the new AFS start at the leftmost maximum
+				initialIndex = minIndex + 1; 
+			    
+				// update the minimum and maximum
+				minInt = maxInt; 
+				maxInt = ints[i];
+		
+				
+				tmpLength = i - initialIndex + 1;   // order is very important !!!!!!!!!!!!!!!
+				
+				// update result
+				resultLength = (resultLength > tmpLength) ? resultLength : tmpLength;
+				resultIndex = (resultLength > tmpLength) ? resultIndex : initialIndex ;
+				
+			}
+			else{
+				// not satisfied, differ more than 1 
+				// --> reset
+				
+				initialIndex =  i;
+				
+				minInt = ints[i];
+				maxInt = ints[i];
+				
+				resultLength = (resultLength > tmpLength) ? resultLength : tmpLength;
+				tmpLength = 1;
+			}
+			
+			//System.out.println("Now we are at int[" + i + "]" + ": " + ints[i] +"-----" + "minInt:" + minInt + " maxInt: " + maxInt + " resultIndex: " + resultIndex
+			//		+ " resultlength: " + resultLength + " tmpLength: " + tmpLength);
+			
+		
+			
+		}
+		
+		resultArr[0] = resultIndex;
+		resultArr[1] = resultLength;
+	
+		return resultArr; 
 	}
 
 
@@ -85,6 +176,11 @@ public class LongestAlmostFlatSubarray {
 
 
 		System.out.println("\nAdditional tests done by the student or TA:\n");
+		testDrive(new int[] { 7, -1, 2, -2, -3, -2, -2, 8, 7, 1, 2, 1, 7, 8 }, "[ 3 , 4 ]");
+		testDrive(new int[] { 7, 7, 9, 8, 8, 8, 8, 8, 9, 7, 2, 6, 7, 8 }, "[ 2 , 7 ]");
+		testDrive(new int[] { 0, 0, 2, -8, 7, 7, -8, -8, -7, -9, 2, 1, 7, 8 }, "[ 6 , 3 ]");
+		testDrive(new int[] { 0 }, "[ 0 , 1 ]");
+		testDrive(new int[] { 0, 0, 0, 0 }, "[ 0 , 4 ]");
 
 		// Insert your additional test cases here.
 	}
