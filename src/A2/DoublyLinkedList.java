@@ -96,6 +96,8 @@ public class DoublyLinkedList<E> {
     public void setNext(Node<E> n) { next = n; }
   } //----------- end of nested Node class -----------
 
+    
+    
   // instance variables of the DoublyLinkedList
   /** Sentinel node at the beginning of the list */
   private Node<E> header;                    // header sentinel
