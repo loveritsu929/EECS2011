@@ -39,7 +39,7 @@ public class DoublyLinkedList<E> {
    * Node of a doubly linked list, which stores a reference to its
    * element and to both the previous and next node in the list.
    */
-  private static class Node<E> {
+    public static class Node<E> {
 
     /** The element stored at this node */
     private E element;               // reference to the element stored at this node
