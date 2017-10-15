@@ -27,7 +27,7 @@ public class PancakeSort<E extends Comparable<E>> {
 			if (iter.getNext().getElement().compareTo(maxNode.getElement()) > 0){
 				//
 				maxNode = iter.getNext();
-				System.out.printf("first:%d, now at iter=%d , findMax: %d\n", list.getHeader().getNext().getElement(),iter.getElement(),maxNode.getElement());
+				//System.out.printf("first:%d, now at iter=%d , findMax: %d\n", list.getHeader().getNext().getElement(),iter.getElement(),maxNode.getElement());
 				
 			}
 			iter = iter.getNext();
@@ -89,7 +89,7 @@ public class PancakeSort<E extends Comparable<E>> {
 			preN = pnNext;
 			sufN= snPre;
 			}
-			System.out.printf("list = %s , subLength = %d, i = %d\n", list.toString(),subLength, i);
+			//System.out.printf("list = %s , subLength = %d, i = %d\n", list.toString(),subLength, i);
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class PancakeSort<E extends Comparable<E>> {
 			temp = list.getTrailer();
 			//!!!!!
 			Node<E> maxNode = getPrefixMaxNode(lastNode);
-			System.out.printf("max=%d\n", maxNode.getElement());
+			//System.out.printf("max=%d\n", maxNode.getElement());
 			
 			if(lastNode == maxNode){
 				for(int j =0; j<i+2;j++){
@@ -121,7 +121,7 @@ public class PancakeSort<E extends Comparable<E>> {
 					
 					
 					}
-				System.out.printf("temp=%d\n", temp.getElement());
+				//System.out.printf("temp=%d\n", temp.getElement());
 				lastNode = temp;
 			}
 			else{
@@ -135,7 +135,7 @@ public class PancakeSort<E extends Comparable<E>> {
 				
 				
 				}
-			System.out.printf("temp=%d\n", temp.getElement());
+			//System.out.printf("temp=%d\n", temp.getElement());
 			lastNode = temp;
 			//maxNode = getPrefixMaxNode(lastNode);
 			}
@@ -159,14 +159,25 @@ public class PancakeSort<E extends Comparable<E>> {
 		//Test
 		PancakeSort<Integer> pancake = new PancakeSort<>();
 		pancake.setList(buildList(9, 5, 4, 3, 6, 8, 10,1)) ;
-		DoublyLinkedList<Integer> list = pancake.getList();
-		System.out.println(pancake.getList().toString());
+		System.out.println("Given string: "+pancake.getList().toString());
 		//System.out.println(pancake.getList().getHeader().getNext().getElement());
 		//System.out.println(pancake.getPrefixMaxNode(list.getHeader().getNext().getNext().getNext().getNext()
 		//		.getNext().getNext().getNext()).getElement());
 		//System.out.println(list.size());
 		pancake.pancakeSort();
-		System.out.println(pancake.getList().toString());
+		System.out.println("Sorted string"+pancake.getList().toString());
+		
+		pancake.setList(buildList(1,2,3,4,5,6,7)) ;
+		System.out.println("Given string: "+pancake.getList().toString());
+		pancake.pancakeSort();
+		System.out.println("Sorted string"+pancake.getList().toString());
+
+		pancake.setList(buildList(-1, 2, 4, 7, 5, 13, 0, 9)) ;
+		System.out.println("Given string: "+pancake.getList().toString());
+		pancake.pancakeSort();
+		System.out.println("Sorted string"+pancake.getList().toString());
+		
+		
 		
 		
 	}
