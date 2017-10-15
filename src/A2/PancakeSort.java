@@ -24,9 +24,10 @@ public class PancakeSort<E extends Comparable<E>> {
 		Node<E> iter = (Node<E>) list.getHeader().getNext();
 		Node<E> maxNode = iter;
 		while(iter != prefixLast){
-			if (iter.getNext().getElement().compareTo(iter.getElement()) > 0){
+			if (iter.getNext().getElement().compareTo(maxNode.getElement()) > 0){
 				//
 				maxNode = iter.getNext();
+				System.out.printf("first:%d, now at iter=%d , findMax: %d\n", list.getHeader().getNext().getElement(),iter.getElement(),maxNode.getElement());
 				
 			}
 			iter = iter.getNext();
@@ -59,6 +60,20 @@ public class PancakeSort<E extends Comparable<E>> {
 			//System.out.printf("\n snNext=%d ",(int)snNext.getElement());
 			//System.out.print( sufN.getElement()+"\n");
 			
+			//Last two consecutive nodes.
+			if(subLength %2 ==0 && i == subLength/2 - 1) {
+				preN.setPrev(sufN);
+				preN.setNext(snNext);
+				//snPre.setNext(preN);
+				snNext.setPrev(preN);
+				
+				sufN.setPrev(pnPre);
+				sufN.setNext(preN);
+				pnPre.setNext(sufN);
+				//pnNext.setPrev(sufN);
+			
+			}
+			else{
 			
 			preN.setPrev(snPre);
 			preN.setNext(snNext);
@@ -73,6 +88,8 @@ public class PancakeSort<E extends Comparable<E>> {
 			//preN= preN.getNext();
 			preN = pnNext;
 			sufN= snPre;
+			}
+			System.out.printf("list = %s , subLength = %d, i = %d\n", list.toString(),subLength, i);
 		}
 	}
 	
@@ -95,8 +112,19 @@ public class PancakeSort<E extends Comparable<E>> {
 			temp = list.getTrailer();
 			//!!!!!
 			Node<E> maxNode = getPrefixMaxNode(lastNode);
+			System.out.printf("max=%d\n", maxNode.getElement());
 			
-			if(lastNode == maxNode) continue;
+			if(lastNode == maxNode){
+				for(int j =0; j<i+2;j++){
+					
+					temp = temp.getPrev();
+					
+					
+					}
+				System.out.printf("temp=%d\n", temp.getElement());
+				lastNode = temp;
+			}
+			else{
 			reversePrefix(maxNode);
 			reversePrefix(lastNode);
 			
@@ -105,9 +133,12 @@ public class PancakeSort<E extends Comparable<E>> {
 				
 				temp = temp.getPrev();
 				
-			}
+				
+				}
+			System.out.printf("temp=%d\n", temp.getElement());
 			lastNode = temp;
-			maxNode = getPrefixMaxNode(lastNode);
+			//maxNode = getPrefixMaxNode(lastNode);
+			}
 		}
 		
 		
