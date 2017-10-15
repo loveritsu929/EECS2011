@@ -177,6 +177,11 @@ public class PancakeSort<E extends Comparable<E>> {
 		pancake.pancakeSort();
 		System.out.println("Sorted string"+pancake.getList().toString());
 		
+		PancakeSort<String> pancake2 = new PancakeSort<>();
+		pancake2.setList(buildList("ab","tom","str","2011","york","foo")) ;
+		System.out.println("Given string: "+pancake2.getList().toString());
+		pancake2.pancakeSort();
+		System.out.println("Sorted string"+pancake2.getList().toString());
 		
 		
 		
