@@ -32,14 +32,14 @@ package A2;
  *
  * @param <E>
  */
-public class DoublyLinkedList<E> {
+public class DoublyLinkedList<E extends Comparable<E>> {
 
   //---------------- nested Node class ----------------
   /**
    * Node of a doubly linked list, which stores a reference to its
    * element and to both the previous and next node in the list.
    */
-    public static class Node<E> {
+    public static class Node<E extends Comparable<E>> {
 
     /** The element stored at this node */
     private E element;               // reference to the element stored at this node
@@ -69,6 +69,8 @@ public class DoublyLinkedList<E> {
      * @return the element stored at the node
      */
     public E getElement() { return element; }
+    
+    
 
     /**
      * Returns the node that precedes this one (or null if no such node).
@@ -128,6 +130,14 @@ public class DoublyLinkedList<E> {
    */
   public boolean isEmpty() { return size == 0; }
 
+  public Node<E> getHeader(){
+  	return (Node<E>) this.header;
+  }
+  
+  public Node<E> getTrailer(){
+	  	return (Node<E>) this.trailer;
+	  }
+  
   /**
    * Returns (but does not remove) the first element of the list.
    * @return element at the front of the list (or null if empty)
