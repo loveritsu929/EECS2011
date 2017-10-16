@@ -20,10 +20,9 @@ public class Problem2 {
 	
 	
 	public static void main(String[] args) {
-		//System.out.println(f(1001));
-		System.out.println(f(1000));
+		System.out.println(f(10));
 		System.out.println(i);
-		//System.out.println(f(0));
+	
 	}
 }
 

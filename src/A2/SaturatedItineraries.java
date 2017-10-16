@@ -9,5 +9,9 @@
 package A2;
 
 public class SaturatedItineraries {
-
+	
+	
+	public void reportSI(int[] unitPriceList, int budget){
+		
+	}
 }

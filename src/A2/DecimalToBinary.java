@@ -33,13 +33,20 @@ public class DecimalToBinary {
 	}
 	
 	public static void main(String[] args) {
-		//System.out.println(Integer.toBinaryString(-25));
+		
+		System.out.print("Given int 25: ");
 		Rec10To2(25); System.out.print("===="); Iter10To2(25);
 		System.out.println();
+		
+		System.out.print("Given int 3: ");
 		Rec10To2(3); System.out.print("===="); Iter10To2(3);
 		System.out.println();
+		
+		System.out.print("Given int 4: ");
 		Rec10To2(4); System.out.print("===="); Iter10To2(4);
 		System.out.println();
+		
+		System.out.print("Given int 99: ");
 		Rec10To2(99); System.out.print("===="); Iter10To2(99);
 	}
 }
