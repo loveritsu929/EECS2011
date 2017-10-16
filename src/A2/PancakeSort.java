@@ -13,22 +13,19 @@ import A2.DoublyLinkedList.Node;
 
 public class PancakeSort<E extends Comparable<E>> {
 
-	
-	//private Node prefixLast;
 	private DoublyLinkedList<E> list;
 	
 	Node<E> temp;
 	
-	//return a pointer to the node with maximum element within the specified prefix of the instance list
+	/**return a pointer to the node with maximum element within the specified prefix of the instance list*/
 	public Node<E> getPrefixMaxNode(Node<E> prefixLast){
-		Node<E> iter = (Node<E>) list.getHeader().getNext();
+		Node<E> iter = (Node<E>) list.getHeader().getNext(); // the first node
 		Node<E> maxNode = iter;
 		while(iter != prefixLast){
 			if (iter.getNext().getElement().compareTo(maxNode.getElement()) > 0){
-				//
-				maxNode = iter.getNext();
-				//System.out.printf("first:%d, now at iter=%d , findMax: %d\n", list.getHeader().getNext().getElement(),iter.getElement(),maxNode.getElement());
 				
+				// if find a larger element, update
+				maxNode = iter.getNext();
 			}
 			iter = iter.getNext();
 		}
@@ -36,17 +33,19 @@ public class PancakeSort<E extends Comparable<E>> {
 		return maxNode;
 	}
 	
+	/**reverse the sequence of nodes of the specified prefix in the instance list */
 	public void reversePrefix(Node prefixLast){
-		Node<E> iter = (Node<E>) list.getHeader().getNext();
-		int subLength = 1;
+		Node<E> iter = (Node<E>) list.getHeader().getNext(); // the first node
+		int subLength = 1; // length of the sublist to be reversed
 		
-		while(iter != prefixLast){
+		while(iter != prefixLast){ // count the length of the sublist
 			
 			subLength++;
 			iter = iter.getNext();
 		}
 		
-		Node<E> preN = (Node<E>) list.getHeader().getNext();
+		// every step we exchange the first and the last node in the remaining list 
+		Node<E> preN = (Node<E>) list.getHeader().getNext(); 
 		Node<E> sufN = prefixLast;
 		//System.out.println( subLength);
 		
@@ -60,7 +59,9 @@ public class PancakeSort<E extends Comparable<E>> {
 			//System.out.printf("\n snNext=%d ",(int)snNext.getElement());
 			//System.out.print( sufN.getElement()+"\n");
 			
-			//Last two consecutive nodes.
+			// Last two consecutive nodes.
+			// pnNext == snPrev
+			// only 4 nodes involved, handled separately
 			if(subLength %2 ==0 && i == subLength/2 - 1) {
 				preN.setPrev(sufN);
 				preN.setNext(snNext);
@@ -84,8 +85,7 @@ public class PancakeSort<E extends Comparable<E>> {
 			sufN.setNext(pnNext);
 			pnPre.setNext(sufN);
 			pnNext.setPrev(sufN);
-			
-			//preN= preN.getNext();
+		    
 			preN = pnNext;
 			sufN= snPre;
 			}
@@ -93,6 +93,7 @@ public class PancakeSort<E extends Comparable<E>> {
 		}
 	}
 	
+	/**return a doubly linked list consisting of the elements in the given order */
 	public static <E extends Comparable<E>> DoublyLinkedList<E> buildList(E... elements){
 		
 		DoublyLinkedList<E> newList = new DoublyLinkedList<E>();
@@ -110,40 +111,30 @@ public class PancakeSort<E extends Comparable<E>> {
 		
 		for(int i = 0; i < list.size(); i++){
 			temp = list.getTrailer();
-			//!!!!!
-			Node<E> maxNode = getPrefixMaxNode(lastNode);
-			//System.out.printf("max=%d\n", maxNode.getElement());
 			
-			if(lastNode == maxNode){
-				for(int j =0; j<i+2;j++){
-					
-					temp = temp.getPrev();
-					
-					
+			Node<E> maxNode = getPrefixMaxNode(lastNode);
+			
+			if(lastNode == maxNode){ // if the maxNode is already located at the right position
+				
+				//update lastNode, i+2 before the trailer
+				for(int j =0; j<i+2;j++){				
+					temp = temp.getPrev();				
 					}
-				//System.out.printf("temp=%d\n", temp.getElement());
+	
 				lastNode = temp;
 			}
 			else{
-			reversePrefix(maxNode);
-			reversePrefix(lastNode);
+			reversePrefix(maxNode); //bring the maxNode to the front
+			reversePrefix(lastNode); // send the maxNode to the end of the unsorted sublist
 			
-			//lastNode = lastNode.getPrev();
 			for(int j =0; j<i+2;j++){
-				
 				temp = temp.getPrev();
-				
-				
 				}
-			//System.out.printf("temp=%d\n", temp.getElement());
+
 			lastNode = temp;
-			//maxNode = getPrefixMaxNode(lastNode);
+			
 			}
 		}
-		
-		
-		
-		
 	}
 	
 	public void setList(DoublyLinkedList<E> list){
@@ -159,29 +150,28 @@ public class PancakeSort<E extends Comparable<E>> {
 		//Test
 		PancakeSort<Integer> pancake = new PancakeSort<>();
 		pancake.setList(buildList(9, 5, 4, 3, 6, 8, 10,1)) ;
-		System.out.println("Given string: "+pancake.getList().toString());
-		//System.out.println(pancake.getList().getHeader().getNext().getElement());
-		//System.out.println(pancake.getPrefixMaxNode(list.getHeader().getNext().getNext().getNext().getNext()
-		//		.getNext().getNext().getNext()).getElement());
-		//System.out.println(list.size());
+		System.out.println("Given list: "+pancake.getList().toString());
 		pancake.pancakeSort();
-		System.out.println("Sorted string"+pancake.getList().toString());
+		System.out.println("Sorted list"+pancake.getList().toString());
+		System.out.println();
 		
 		pancake.setList(buildList(1,2,3,4,5,6,7)) ;
-		System.out.println("Given string: "+pancake.getList().toString());
+		System.out.println("Given list: "+pancake.getList().toString());
 		pancake.pancakeSort();
-		System.out.println("Sorted string"+pancake.getList().toString());
-
+		System.out.println("Sorted list"+pancake.getList().toString());
+		System.out.println();
+		
 		pancake.setList(buildList(-1, 2, 4, 7, 5, 13, 0, 9)) ;
-		System.out.println("Given string: "+pancake.getList().toString());
+		System.out.println("Given list: "+pancake.getList().toString());
 		pancake.pancakeSort();
-		System.out.println("Sorted string"+pancake.getList().toString());
+		System.out.println("Sorted list"+pancake.getList().toString());
+		System.out.println();
 		
 		PancakeSort<String> pancake2 = new PancakeSort<>();
 		pancake2.setList(buildList("ab","tom","str","2011","york","foo")) ;
-		System.out.println("Given string: "+pancake2.getList().toString());
+		System.out.println("Given list: "+pancake2.getList().toString());
 		pancake2.pancakeSort();
-		System.out.println("Sorted string"+pancake2.getList().toString());
+		System.out.println("Sorted list"+pancake2.getList().toString());
 		
 		
 		
