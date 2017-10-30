@@ -20,6 +20,34 @@ public class SIsolution {
 		System.out.println("The number of saturated Itineraries = " + numR);
 	}
 	
+	/**
+	 * <pre>
+	 * Overloaded: this is the purely recursive routine
+	 *
+	 * PreCondition:
+	 *   (1) Total Price = budget - rem = SUM_i(qList[i]*uPL[i]) + more*uPL[maxIndex]
+	 *   (2) qList[i] >= 0  (if i >= maxIndex); 
+	 *                 = 0  (if i <  maxIndex)
+	 *   (3) more >= 0,  maxIndex >= -1
+	 *   (4) uPL[-1] = 0 (fictitiously used only in (1) if maxIndex = -1)
+	 * 
+	 * PostCondition:
+	 *   prints each saturated itinerary (with its total price) 
+	 *   whose quantity array, denoted Q[], satisfies:
+	 *   Q[i] >= 0               (if i < maxIndex); 
+	 *        >= qList[i] + more (if i = maxIndex); 
+	 *         = qList[i]        (if i > maxIndex)
+	 * </pre>
+	 * 
+	 * @param maxIndex
+	 *            item quantities up to this index are tentative; the rest are fixed
+	 * 
+	 * @param rem
+	 *            the remaining amount of budget to be spent on tentative items.
+	 * 
+	 * @param more
+	 *            this many more should be added to qList[maxIndex]
+	 */
 	private static void reportSI(int rem, int maxIndex, int more){
 		
 		if(rem< 0 || (maxIndex < 0 && rem >= uPL[0])){
@@ -29,7 +57,7 @@ public class SIsolution {
 		}
 		qList[maxIndex] += more;
 		
-		if(rem < uPL[0]) outputSI(budget - rem);
+		if(rem < uPL[0]) outputSI(budget - rem); // find & report
 		else if(maxIndex == 0) 
 			//
 			reportSI(rem % uPL[0], 0, rem / uPL[0]);
