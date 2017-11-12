@@ -44,12 +44,14 @@ public class SaturatedItineraries {
 	    else if(localExp <= budget && localExp + unitPriceList[0] > budget){
 			numResults++;
 			System.out.println("Quantities = " + Arrays.toString(localQuan) + ". Total Price = " + localExp );
+			return;
 		}
 		else{
 			
 			index --;
 			for(int i=0; i < unitPriceList.length; i++)
-			reportSI(unitPriceList, budget, localQuan, localExp, i);		
+			reportSI(unitPriceList, budget, localQuan, localExp, i);
+			return;
 		}
 		
 	}
