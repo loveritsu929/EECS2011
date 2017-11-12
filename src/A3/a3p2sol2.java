@@ -20,7 +20,7 @@ class Node
 //A utility class to pass heigh object
 class Height
 {
- int h;
+ int h = 0;
 }
 
 /* Class to print the Diameter */
@@ -46,14 +46,14 @@ class BinaryTree
         rdiameter  --> Diameter of right subtree */ 
      /* Get the heights of left and right subtrees in lh and rh
       And store the returned values in ldiameter and ldiameter */
-     lh.h++;     rh.h++; 
+   
      int ldiameter = diameterOpt(root.left, lh);
      int rdiameter = diameterOpt(root.right, rh);
 
      /* Height of current node is max of heights of left and
       right subtrees plus 1*/
      height.h = Math.max(lh.h, rh.h) + 1;
-
+     
      return Math.max(lh.h + rh.h + 1, Math.max(ldiameter, rdiameter));
  }
 
@@ -64,19 +64,7 @@ class BinaryTree
      return diameterOpt(root, height);
  }
 
- /*The function Compute the "height" of a tree. Height is the
-   number f nodes along the longest path from the root node
-   down to the farthest leaf node.*/
- static int height(Node node)
- {
-     /* base case tree is empty */
-     if (node == null)
-         return 0;
 
-     /* If tree is not empty then height = 1 + max of left
-        height and right heights */
-     return (1 + Math.max(height(node.left), height(node.right)));
- }
 
  public static void main(String args[])
  {
