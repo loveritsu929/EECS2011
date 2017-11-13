@@ -7,6 +7,7 @@ package A3;
 node and key value*/
 class Node
 {
+	
  int data;
  Node left, right;
 
