@@ -22,8 +22,8 @@ public class SaturatedItineraries {
 		
 		System.out.println("Unit Price List = " + Arrays.toString(unitPriceList) + ". Budget = " + budget );
 		
-		
-		reportSI(unitPriceList, budget, expense, 0);
+		//call the overloaded recursive method
+		reportSI(unitPriceList, budget, expense, unitPriceList.length-1);
 		System.out.println("The number of saturated Itineraries = " + numResults);
 	}
 	
@@ -31,7 +31,8 @@ public class SaturatedItineraries {
 		
 		int localExp = expense;
 
-		if(index == unitPriceList.length) index = 0;
+		if(index == -1) index = unitPriceList.length - 1;
+		
 		quantities[index]++;
 		localExp = unitPriceList[index] + expense;
 	
@@ -45,7 +46,7 @@ public class SaturatedItineraries {
 			System.out.println("Quantities = " + Arrays.toString(quantities) + ". Total Price = " + localExp );
 		}
 		else{
-			index ++;
+			index --;
 			//System.out.println(index);
 			reportSI(unitPriceList, budget, localExp, index);		
 		}

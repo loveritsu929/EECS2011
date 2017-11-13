@@ -146,6 +146,10 @@ public class PancakeSort<E extends Comparable<E>> {
 		
 	}
 	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		//Test
 		PancakeSort<Integer> pancake = new PancakeSort<>();
@@ -176,5 +180,8 @@ public class PancakeSort<E extends Comparable<E>> {
 		
 		
 	}
-	
+
+
 }
+	
+

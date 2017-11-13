@@ -32,14 +32,14 @@ package A2;
  *
  * @param <E>
  */
-public class DoublyLinkedList<E extends Comparable<E>> {
+public class DoublyLinkedList<E> {
 
   //---------------- nested Node class ----------------
   /**
    * Node of a doubly linked list, which stores a reference to its
    * element and to both the previous and next node in the list.
    */
-    public static class Node<E extends Comparable<E>> {
+    public static class Node<E> {
 
     /** The element stored at this node */
     private E element;               // reference to the element stored at this node
