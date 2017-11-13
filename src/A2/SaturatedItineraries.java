@@ -12,43 +12,46 @@ import java.util.Arrays;
 
 public class SaturatedItineraries {
 	
-	private static int[] quantities;
+	//private static int[] quantities;
 	private static int numResults = 0;
 	
 	public static void reportSI(int[] unitPriceList, int budget){
 		int expense = 0;
-		
-		quantities = new int[unitPriceList.length];
+		int[] quantities = new int[unitPriceList.length];
 		
 		System.out.println("Unit Price List = " + Arrays.toString(unitPriceList) + ". Budget = " + budget );
 		
-		//call the overloaded recursive method
-		reportSI(unitPriceList, budget, expense, unitPriceList.length-1);
+		
+		reportSI(unitPriceList, budget, quantities, expense, unitPriceList.length-1);
 		System.out.println("The number of saturated Itineraries = " + numResults);
 	}
 	
-	public static void reportSI(int[] unitPriceList, int budget, int expense, int index){
+	public static void reportSI(int[] unitPriceList, int budget, int[] quantities, int expense, int index){
 		
 		int localExp = expense;
+		int[] localQuan = Arrays.copyOf(quantities, quantities.length);
 
 		if(index == -1) index = unitPriceList.length - 1;
 		
-		quantities[index]++;
+		localQuan[index]++;
 		localExp = unitPriceList[index] + expense;
 	
 	    if(localExp > budget) {
-			quantities[index]--;
+	    	localQuan[index]--;
 			localExp -= unitPriceList[index];
 			return;
 		}
 	    else if(localExp <= budget && localExp + unitPriceList[0] > budget){
 			numResults++;
-			System.out.println("Quantities = " + Arrays.toString(quantities) + ". Total Price = " + localExp );
+			System.out.println("Quantities = " + Arrays.toString(localQuan) + ". Total Price = " + localExp );
+			return;
 		}
 		else{
+			
 			index --;
-			//System.out.println(index);
-			reportSI(unitPriceList, budget, localExp, index);		
+			for(int i=0; i < unitPriceList.length; i++)
+			reportSI(unitPriceList, budget, localQuan, localExp, i);
+			return;
 		}
 		
 	}
