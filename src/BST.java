@@ -14,25 +14,13 @@ public class BST <T extends Comparable<T>> implements Iterable<T>
       BST<Integer> bst = new BST<Integer>();
       for(Integer n : a) bst.insert(n);
 
-      bst.preOrderTraversal();
-      System.out.println();
-
-      //testing comparator
-      //build a mirror BST with a rule:  Left > Parent > Right
-      //code for the comparator at the bottom of the file
-      bst = new BST<Integer>(new MyComp1());
-      for(Integer n : a) bst.insert(n);
-
-      bst.preOrderTraversal();
-      System.out.println();
       bst.inOrderTraversal();
       System.out.println();
 
-
-      for(Integer n : bst) System.out.print(n);
+      System.out.println("delete 5");
+      bst.delete(new Integer(5));
+      bst.inOrderTraversal();
       System.out.println();
-
-      System.out.println(bst);
 
       //testing restoring a tree from two given traversals
       bst.restore(new Integer[] {11,8,6,4,7,10,19,43,31,29,37,49},
